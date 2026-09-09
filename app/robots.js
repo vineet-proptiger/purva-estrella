@@ -4,6 +4,6 @@ export default function robots() {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://purva-estrella-lokhandwala.co.in/sitemap.xml',
+    sitemap: 'https://puravankaraestrellalokhandwala.com/sitemap.xml',
   }
 }

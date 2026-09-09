@@ -2,18 +2,17 @@ import React from 'react'
 
 const Highlights = ({ setIsOpen }) => {
   return (
-    <section id="highlights" className="about_us py-20 relative bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('/images/highlights/highlight.webp')" }}>
-      {/* Dark overlay for better contrast if needed, but since user said no bg color, I'll keep it mostly transparent or a very light overlay if text is bright. Wait, the SS has dark text on light cards, and gold text on dark background. I will add a subtle dark overlay so the gold text is visible, just in case, but let me check if there was an overlay originally. The user said "show koi bg colo na use kre". So I won't use a bg color. */}
-      
-      <div className="container-fluid max-w-[1300px] mx-auto relative z-10 py-[70px]">
-        <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-semibold leading-tight uppercase tracking-wider text-[#004B87] text-center" data-aos="fade-up" data-aos-duration="1000" style={{ fontFamily: "var(--font-jost), Montserrat, sans-serif", marginBottom: '10px' }}>
+    <section id="highlights" className="about_us pt-5 sm:pt-6 md:pt-8 pb-3 md:pb-6 relative bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('/images/highlights/highlight.webp')" }}>
+      {/* Dark overlay for better contrast if needed */}
+      <div className="container mx-auto px-4 md:px-8 max-w-[1200px] relative z-10 pt-0 pb-2">
+        <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-semibold leading-tight uppercase tracking-wider text-white text-center" data-aos="fade-up" data-aos-duration="1000" style={{ fontFamily: "var(--font-jost), Montserrat, sans-serif", marginBottom: '10px' }}>
           PROJECT HIGHLIGHTS & USPS
         </h2>
         {/* Decorative Line */}
         <div className="flex items-center justify-center mt-3 mb-8" data-aos="fade-up" data-aos-duration="1000">
-          <div className="w-16 h-[1px] bg-[#004B87]"></div>
-          <div className="w-2 h-2 rounded-full bg-[#004B87] mx-3"></div>
-          <div className="w-16 h-[1px] bg-[#004B87]"></div>
+          <div className="w-16 h-[1px] bg-white/70"></div>
+          <div className="w-2 h-2 rounded-full bg-white mx-3"></div>
+          <div className="w-16 h-[1px] bg-white/70"></div>
         </div>
         
         {/* 6 Highlights Cards Matching User Layout */}

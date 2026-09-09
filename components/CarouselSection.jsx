@@ -114,7 +114,7 @@ const CarouselSection = ({ setIsOpen, title = "Glimpses of Masterpiece", subtitl
         scrollMarginTop: '80px',
         padding: '56px 0 84px 0',
         background: id === 'amenities' 
-          ? 'linear-gradient(180deg, #0d1705 0%, #16260b 50%, #0a1304 100%)' 
+          ? 'linear-gradient(180deg, #06111e 0%, #0c1f38 50%, #050d18 100%)' 
           : '#f9f9f9',
         color: id === 'amenities' ? '#ffffff' : '#121212',
         fontFamily: '"Montserrat", var(--font-montserrat), sans-serif',
@@ -128,14 +128,14 @@ const CarouselSection = ({ setIsOpen, title = "Glimpses of Masterpiece", subtitl
       {/* ── Ambient Luxury Deep Glow (Amenities only) ── */}
       {id === 'amenities' && (
         <>
-          {/* Top-Right Soft Emerald Orb */}
-          <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#004B87]/20 blur-[110px] pointer-events-none" />
+          {/* Top-Right Soft Royal Navy Orb */}
+          <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#004B87]/30 blur-[120px] pointer-events-none" />
           
-          {/* Bottom-Left Soft Forest Orb */}
-          <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full bg-[#004B87]/25 blur-[110px] pointer-events-none" />
+          {/* Bottom-Left Soft Sapphire Orb */}
+          <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full bg-[#0284C7]/25 blur-[120px] pointer-events-none" />
 
-          {/* Center Subtle Resort Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[380px] rounded-full bg-[#004B87]/15 blur-[100px] pointer-events-none" />
+          {/* Center Subtle Deep Navy Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[380px] rounded-full bg-[#004B87]/20 blur-[100px] pointer-events-none" />
         </>
       )}
       <style dangerouslySetInnerHTML={{ __html: `
@@ -528,7 +528,7 @@ const CarouselSection = ({ setIsOpen, title = "Glimpses of Masterpiece", subtitl
               className="mt-4 text-center text-white/80 text-xs md:text-sm tracking-wide max-w-[80vw]"
               style={{ fontFamily: F_JOST }}
             >
-              {images[selectedImgIndex]?.alt || images[selectedImgIndex]?.title || images[selectedImgIndex]?.label}
+              {images[selectedImgIndex]?.title || images[selectedImgIndex]?.label || images[selectedImgIndex]?.alt}
             </div>
           </div>
         </div>

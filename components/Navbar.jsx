@@ -10,35 +10,46 @@ const Navbar = ({ setIsOpen }) => {
 
   useEffect(() => {
     let lastScrollY = window.scrollY
+    let ticking = false
 
     const onScroll = () => {
       const currentScrollY = window.scrollY
 
-      if (currentScrollY <= 50) {
-        setNavState('top')
-      } else if (Math.abs(currentScrollY - lastScrollY) > 4) {
-        if (currentScrollY > lastScrollY) {
-          // Scrolling down -> collapse to hanging logo tab
-          setNavState('collapsed')
-        } else {
-          // Scrolling up -> bring back the full 1st navbar with links
-          setNavState('expanded')
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (currentScrollY <= 50) {
+            setNavState('top')
+            lastScrollY = currentScrollY
+          } else {
+            const diff = currentScrollY - lastScrollY
+            if (Math.abs(diff) > 10) {
+              if (diff > 0) {
+                // Scrolling down -> collapse to hanging logo tab
+                setNavState('collapsed')
+              } else {
+                // Scrolling up -> bring back the full 1st navbar with links
+                setNavState('expanded')
+              }
+              lastScrollY = currentScrollY
+            }
+          }
+
+          // Automatically detect if navbar is currently over a blue/dark section
+          const darkSections = document.querySelectorAll('#highlights, #location, #developer, .hero-container, footer');
+          let overDarkSection = false;
+          const navY = 80;
+          darkSections.forEach((sec) => {
+            const rect = sec.getBoundingClientRect();
+            if (rect.top <= navY && rect.bottom >= navY) {
+              overDarkSection = true;
+            }
+          });
+          setIsOverDark(overDarkSection);
+
+          ticking = false
+        })
+        ticking = true
       }
-
-      // Automatically detect if navbar is currently over a blue/dark section
-      const darkSections = document.querySelectorAll('#highlights, #location, #developer, .hero-container, footer');
-      let overDarkSection = false;
-      const navY = 80;
-      darkSections.forEach((sec) => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top <= navY && rect.bottom >= navY) {
-          overDarkSection = true;
-        }
-      });
-      setIsOverDark(overDarkSection);
-
-      lastScrollY = currentScrollY
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -74,105 +85,131 @@ const Navbar = ({ setIsOpen }) => {
           padding: 0 15px;
         }
 
+        /* Nav container: Always perfectly centered flex container */
         .header_style2 .header_navigation2,
         .header_style2.scrolled-up-expanded .header_navigation2 {
           display: flex;
-          justify-content: space-between !important;
           align-items: center;
-          list-style-type: none;
+          justify-content: center;
           width: 98% !important;
           max-width: 1560px !important;
           height: 64px !important;
-          padding: 0 24px !important;
+          padding: 0 22px !important;
           margin: 0 auto;
-          background: rgba(15, 23, 42, 0.38) !important;
+          background: rgba(15, 23, 42, 0.45) !important;
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.25);
           border-radius: 50px !important;
           box-shadow: 0 10px 32px rgba(0, 0, 0, 0.25) !important;
+          overflow: visible !important;
           transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
+                      height 0.55s cubic-bezier(0.16, 1, 0.3, 1),
                       border-radius 0.55s cubic-bezier(0.16, 1, 0.3, 1),
                       background 0.4s ease,
-                      box-shadow 0.4s ease;
+                      border-color 0.4s ease,
+                      box-shadow 0.4s ease,
+                      padding 0.55s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* Sticky Collapsed state: container shrinks smoothly to fit logo */
         .header_style2.sticky .header_navigation2 {
-          width: 320px !important;
+          width: 325px !important;
           height: 54px !important;
           border-radius: 12px !important;
           background: transparent !important;
-          backdrop-filter: none !important;
-          -webkit-backdrop-filter: none !important;
-          border: none !important;
+          backdrop-filter: blur(0px) !important;
+          -webkit-backdrop-filter: blur(0px) !important;
+          border-color: rgba(255, 255, 255, 0) !important;
           box-shadow: none !important;
           padding: 0 !important;
           margin: 0 auto;
           justify-content: center !important;
           overflow: visible !important;
-          transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
-                      border-radius 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                      background 0.4s ease;
         }
 
-        .header_style2 .header_navigation2 li.nav-item,
-        .header_style2.scrolled-up-expanded .header_navigation2 li.nav-item {
+        /* Symmetric wings on Left and Right of the logo */
+        .header_style2 .nav-wing {
+          display: flex;
+          align-items: center;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          flex: 1 1 0%;
+          min-width: 0;
+          overflow: hidden;
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateX(0);
+          transition: max-width 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
+                      flex 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
+                      opacity 0.35s ease 0.05s, 
+                      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .header_style2 .nav-wing-left {
+          justify-content: space-between;
+          max-width: 580px;
+        }
+
+        .header_style2 .nav-wing-right {
+          justify-content: space-between;
+          max-width: 580px;
+        }
+
+        /* When sticky, wings smoothly slide into the logo and collapse */
+        .header_style2.sticky .nav-wing {
+          flex: 0 0 0px !important;
+          max-width: 0px !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+          transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                      flex 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                      opacity 0.25s ease, 
+                      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .header_style2.sticky .nav-wing-left {
+          transform: translateX(50px) !important;
+        }
+
+        .header_style2.sticky .nav-wing-right {
+          transform: translateX(-50px) !important;
+        }
+
+        /* Nav Item Styles */
+        .header_style2 .nav-wing li.nav-item {
           flex: 0 0 auto !important;
-          min-width: max-content !important;
           display: flex;
           justify-content: center;
           align-items: center;
-          overflow: visible !important;
-          opacity: 1 !important;
-          visibility: visible;
           padding: 0 2px !important;
-          transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s, flex 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s, opacity 0.4s ease 0.12s, padding 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+          white-space: nowrap;
         }
 
-        .header_style2 .header_navigation2 li.nav-item:first-child,
-        .header_style2 .header_navigation2 li.nav-item:last-child,
-        .header_style2.scrolled-up-expanded .header_navigation2 li.nav-item:first-child,
-        .header_style2.scrolled-up-expanded .header_navigation2 li.nav-item:last-child {
-          flex: 0 0 auto !important;
-          min-width: max-content !important;
-        }
-
-        .header_style2.sticky .header_navigation2 li.nav-item,
-        .header_style2.sticky .header_navigation2 li.nav-item:first-child,
-        .header_style2.sticky .header_navigation2 li.nav-item:last-child {
-          flex: 0 1 0% !important;
-          min-width: 0px !important;
-          max-width: 0px !important;
-          opacity: 0 !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          pointer-events: none;
-          visibility: hidden;
-          overflow: hidden !important;
-          transition: opacity 0.2s ease 0s, max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s, flex 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s, padding 0.3s ease 0s;
-        }
-
-        .header_style2 .header_navigation2 li.navbar-logo,
-        .header_style2.sticky .header_navigation2 li.navbar-logo,
-        .header_style2.scrolled-up-expanded .header_navigation2 li.navbar-logo {
-          animation: none !important;
+        /* Logo: ALWAYS locked at 50% dead center! */
+        .header_style2 .header_navigation2 .navbar-logo {
           opacity: 1 !important;
           flex: 0 0 auto !important;
           flex-shrink: 0 !important;
-          min-width: 280px !important;
-          max-width: 310px !important;
-          height: 48px !important;
+          min-width: 275px !important;
+          max-width: 305px !important;
+          height: 46px !important;
           background-color: #fff !important;
-          padding: 3px 8px !important;
+          padding: 4px 10px !important;
           border-radius: 10px !important;
           box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12) !important;
-          margin: 0 6px !important;
-          transition: box-shadow 0.3s ease !important;
+          margin: 0 16px !important;
+          transition: box-shadow 0.3s ease, margin 0.55s cubic-bezier(0.16, 1, 0.3, 1) !important;
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
           transform: translateZ(0) !important;
           z-index: 20;
+        }
+
+        .header_style2.sticky .header_navigation2 .navbar-logo {
+          margin: 0 !important;
         }
 
         .navbar-brand {
@@ -185,8 +222,7 @@ const Navbar = ({ setIsOpen }) => {
           margin: 0 !important;
         }
 
-        .header_style2 .header_navigation2 li a,
-        .header_style2.scrolled-up-expanded .header_navigation2 li a {
+        .header_style2 .nav-wing li a {
           color: #ffffff !important;
           font-size: 13px !important;
           padding: 0px 8px !important;
@@ -200,14 +236,12 @@ const Navbar = ({ setIsOpen }) => {
           transition: color 0.3s ease;
         }
         
-        .header_style2 .header_navigation2 li a:hover,
-        .header_style2.scrolled-up-expanded .header_navigation2 li a:hover {
+        .header_style2 .nav-wing li a:hover {
           color: #004B87 !important;
         }
 
         /* Phone Button styling in Nav */
-        .header_style2 .header_navigation2 li a.phone-btn,
-        .header_style2.scrolled-up-expanded .header_navigation2 li a.phone-btn {
+        .header_style2 .nav-wing li a.phone-btn {
           display: flex;
           align-items: center;
           gap: 6px;
@@ -220,8 +254,7 @@ const Navbar = ({ setIsOpen }) => {
           box-shadow: none !important;
         }
 
-        .header_style2 .header_navigation2 li a.phone-btn:hover,
-        .header_style2.scrolled-up-expanded .header_navigation2 li a.phone-btn:hover {
+        .header_style2 .nav-wing li a.phone-btn:hover {
           background: rgba(201, 169, 110, 0.95) !important;
           color: #ffffff !important;
           border-color: rgba(201, 169, 110, 0.95) !important;
@@ -230,15 +263,15 @@ const Navbar = ({ setIsOpen }) => {
         .nav-logo,
         .header_style2.sticky .nav-logo,
         .header_style2.scrolled-up-expanded .nav-logo {
-          height: 40px !important;
-          min-height: 40px !important;
-          max-height: 44px !important;
-          max-width: 295px !important;
+          height: 38px !important;
+          min-height: 38px !important;
+          max-height: 40px !important;
+          max-width: 285px !important;
           width: 100% !important;
           flex-shrink: 0 !important;
           display: block;
           object-fit: contain;
-          transform: scale(1.12) !important;
+          transform: scale(1.05) !important;
           transform-origin: center center !important;
           transition: transform 0.2s ease !important;
         }
@@ -248,36 +281,40 @@ const Navbar = ({ setIsOpen }) => {
           .header_style2 .header_navigation2,
           .header_style2.scrolled-up-expanded .header_navigation2 {
             width: 99% !important;
-            padding: 0 16px !important;
+            padding: 0 14px !important;
+            height: 56px !important;
           }
-          .header_style2 .header_navigation2 li a,
-          .header_style2.scrolled-up-expanded .header_navigation2 li a {
+          .header_style2.sticky .header_navigation2 {
+            width: 245px !important;
+            height: 48px !important;
+          }
+          .header_style2 .nav-wing {
+            max-width: 440px;
+          }
+          .header_style2 .nav-wing li a {
             font-size: 11.5px !important;
             padding: 0px 4px !important;
             letter-spacing: 0.4px !important;
           }
-          .header_style2 .header_navigation2 li a.phone-btn,
-          .header_style2.scrolled-up-expanded .header_navigation2 li a.phone-btn {
-            padding: 5px 9px !important;
+          .header_style2 .nav-wing li a.phone-btn {
+            padding: 4px 8px !important;
             font-size: 11.5px !important;
             gap: 4px;
           }
-          .header_style2 .header_navigation2 li.navbar-logo,
-          .header_style2.sticky .header_navigation2 li.navbar-logo,
-          .header_style2.scrolled-up-expanded .header_navigation2 li.navbar-logo {
-            min-width: 220px !important;
-            max-width: 245px !important;
-            padding: 2px 6px !important;
-            height: 42px !important;
-            margin: 0 4px !important;
+          .header_style2 .header_navigation2 .navbar-logo {
+            min-width: 215px !important;
+            max-width: 240px !important;
+            padding: 3px 8px !important;
+            height: 40px !important;
+            margin: 0 8px !important;
           }
           .nav-logo,
           .header_style2.sticky .nav-logo,
           .header_style2.scrolled-up-expanded .nav-logo {
-            height: 34px !important;
-            min-height: 34px !important;
-            max-width: 235px !important;
-            transform: scale(1.08) !important;
+            height: 32px !important;
+            min-height: 32px !important;
+            max-width: 225px !important;
+            transform: scale(1.03) !important;
           }
         }
 
@@ -286,29 +323,35 @@ const Navbar = ({ setIsOpen }) => {
           .header_style2 .header_navigation2,
           .header_style2.scrolled-up-expanded .header_navigation2 {
             width: 98% !important;
-            padding: 0 20px !important;
+            padding: 0 18px !important;
+            height: 60px !important;
           }
-          .header_style2 .header_navigation2 li a,
-          .header_style2.scrolled-up-expanded .header_navigation2 li a {
+          .header_style2.sticky .header_navigation2 {
+            width: 300px !important;
+            height: 50px !important;
+          }
+          .header_style2 .nav-wing {
+            max-width: 530px;
+          }
+          .header_style2 .nav-wing li a {
             font-size: 12.5px !important;
             padding: 0px 6px !important;
             letter-spacing: 0.6px !important;
           }
-          .header_style2 .header_navigation2 li.navbar-logo,
-          .header_style2.sticky .header_navigation2 li.navbar-logo,
-          .header_style2.scrolled-up-expanded .header_navigation2 li.navbar-logo {
-            min-width: 275px !important;
-            max-width: 300px !important;
-            padding: 3px 8px !important;
-            height: 46px !important;
+          .header_style2 .header_navigation2 .navbar-logo {
+            min-width: 270px !important;
+            max-width: 295px !important;
+            padding: 4px 10px !important;
+            height: 44px !important;
+            margin: 0 12px !important;
           }
           .nav-logo,
           .header_style2.sticky .nav-logo,
           .header_style2.scrolled-up-expanded .nav-logo {
-            height: 38px !important;
-            min-height: 38px !important;
-            max-width: 285px !important;
-            transform: scale(1.1) !important;
+            height: 36px !important;
+            min-height: 36px !important;
+            max-width: 275px !important;
+            transform: scale(1.04) !important;
           }
         }
 
@@ -318,34 +361,38 @@ const Navbar = ({ setIsOpen }) => {
           .header_style2.scrolled-up-expanded .header_navigation2 {
             max-width: 1620px !important;
             height: 68px !important;
-            padding: 0 32px !important;
+            padding: 0 28px !important;
           }
-          .header_style2 .header_navigation2 li a,
-          .header_style2.scrolled-up-expanded .header_navigation2 li a {
+          .header_style2.sticky .header_navigation2 {
+            width: 335px !important;
+            height: 54px !important;
+          }
+          .header_style2 .nav-wing {
+            max-width: 630px;
+          }
+          .header_style2 .nav-wing li a {
             font-size: 14px !important;
             padding: 0px 9px !important;
             letter-spacing: 0.9px !important;
           }
-          .header_style2 .header_navigation2 li a.phone-btn,
-          .header_style2.scrolled-up-expanded .header_navigation2 li a.phone-btn {
+          .header_style2 .nav-wing li a.phone-btn {
             padding: 7px 16px !important;
             font-size: 14px !important;
           }
-          .header_style2 .header_navigation2 li.navbar-logo,
-          .header_style2.sticky .header_navigation2 li.navbar-logo,
-          .header_style2.scrolled-up-expanded .header_navigation2 li.navbar-logo {
-            min-width: 310px !important;
-            max-width: 340px !important;
-            padding: 4px 10px !important;
-            height: 50px !important;
+          .header_style2 .header_navigation2 .navbar-logo {
+            min-width: 300px !important;
+            max-width: 330px !important;
+            padding: 4px 12px !important;
+            height: 48px !important;
+            margin: 0 16px !important;
           }
           .nav-logo,
           .header_style2.sticky .nav-logo,
           .header_style2.scrolled-up-expanded .nav-logo {
-            height: 40px !important;
-            min-height: 40px !important;
-            max-width: 325px !important;
-            transform: scale(1.12) !important;
+            height: 38px !important;
+            min-height: 38px !important;
+            max-width: 310px !important;
+            transform: scale(1.05) !important;
           }
         }
 
@@ -355,34 +402,38 @@ const Navbar = ({ setIsOpen }) => {
           .header_style2.scrolled-up-expanded .header_navigation2 {
             max-width: 1840px !important;
             height: 74px !important;
-            padding: 0 45px !important;
+            padding: 0 40px !important;
           }
-          .header_style2 .header_navigation2 li a,
-          .header_style2.scrolled-up-expanded .header_navigation2 li a {
+          .header_style2.sticky .header_navigation2 {
+            width: 380px !important;
+            height: 58px !important;
+          }
+          .header_style2 .nav-wing {
+            max-width: 710px;
+          }
+          .header_style2 .nav-wing li a {
             font-size: 15.5px !important;
             padding: 0px 14px !important;
             letter-spacing: 1.3px !important;
           }
-          .header_style2 .header_navigation2 li a.phone-btn,
-          .header_style2.scrolled-up-expanded .header_navigation2 li a.phone-btn {
+          .header_style2 .nav-wing li a.phone-btn {
             padding: 8px 20px !important;
             font-size: 15.5px !important;
           }
-          .header_style2 .header_navigation2 li.navbar-logo,
-          .header_style2.sticky .header_navigation2 li.navbar-logo,
-          .header_style2.scrolled-up-expanded .header_navigation2 li.navbar-logo {
-            min-width: 350px !important;
-            max-width: 385px !important;
-            padding: 4px 12px !important;
-            height: 54px !important;
+          .header_style2 .header_navigation2 .navbar-logo {
+            min-width: 340px !important;
+            max-width: 375px !important;
+            padding: 5px 14px !important;
+            height: 52px !important;
+            margin: 0 20px !important;
           }
           .nav-logo,
           .header_style2.sticky .nav-logo,
           .header_style2.scrolled-up-expanded .nav-logo {
-            height: 44px !important;
-            min-height: 44px !important;
-            max-width: 370px !important;
-            transform: scale(1.14) !important;
+            height: 42px !important;
+            min-height: 42px !important;
+            max-width: 355px !important;
+            transform: scale(1.08) !important;
           }
         }
 
@@ -415,15 +466,8 @@ const Navbar = ({ setIsOpen }) => {
             width: 100% !important;
           }
 
-          .header_style2 .header_navigation2 li.nav-item,
-          .header_style2.sticky .header_navigation2 li.nav-item,
-          .header_style2.scrolled-up-expanded .header_navigation2 li.nav-item {
+          .header_style2 .nav-wing {
             display: none !important;
-            flex: 0 0 0% !important;
-            max-width: 0px !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
           }
           
           .header_style2 .header_navigation2,
@@ -442,9 +486,9 @@ const Navbar = ({ setIsOpen }) => {
             transition: none !important;
           }
           
-          .header_style2 .header_navigation2 li.navbar-logo,
-          .header_style2.sticky .header_navigation2 li.navbar-logo,
-          .header_style2.scrolled-up-expanded .header_navigation2 li.navbar-logo {
+          .header_style2 .header_navigation2 .navbar-logo,
+          .header_style2.sticky .header_navigation2 .navbar-logo,
+          .header_style2.scrolled-up-expanded .header_navigation2 .navbar-logo {
             display: flex !important;
             justify-content: flex-start !important;
             align-items: center !important;
@@ -591,39 +635,35 @@ const Navbar = ({ setIsOpen }) => {
         .popup_menu ul li a:hover {
           color: #004B87;
         }
-
-        @keyframes Navbar_scale-in {
-          0% { flex-basis: 7%; opacity: 0; }
-          100% { flex-basis: 14%; opacity: 1; }
-        }
-        
-        @keyframes Navbar_scale-out {
-          0% { flex-basis: 14%; opacity: 1; }
-          100% { flex-basis: 0; opacity: 0; margin: 0; padding: 0; }
-        }
       `}} />
 
       {/* Main Navbar */}
       <div className={`header_style2 ${navState === 'collapsed' ? 'sticky' : navState === 'expanded' ? 'scrolled-up-expanded' : ''} ${isOverDark ? 'nav-over-dark' : 'nav-over-light'}`}>
         <div className="container-fluid">
-          <ul className="header_navigation2">
-            <li className="nav-item"><a href="#overview">Overview</a></li>
-            <li className="nav-item"><a href="#highlights">Highlights</a></li>
-            <li className="nav-item"><a href="#gallery">Gallery</a></li>
-            <li className="nav-item"><a href="#amenities">Amenities</a></li>
+          <div className="header_navigation2">
+            {/* Left Nav Wing */}
+            <ul className="nav-wing nav-wing-left">
+              <li className="nav-item"><a href="#overview">Overview</a></li>
+              <li className="nav-item"><a href="#highlights">Highlights</a></li>
+              <li className="nav-item"><a href="#gallery">Gallery</a></li>
+              <li className="nav-item"><a href="#amenities">Amenities</a></li>
+            </ul>
             
-            <li className="navbar-logo">
+            {/* Center Logo - Mathematically centered at 50% at all times */}
+            <div className="navbar-logo">
               <a href="#" className="navbar-brand">
                 <img src={logoImages.main} alt="Purva Estrella" className="nav-logo" />
               </a>
-            </li>
+            </div>
             
-            {/* <li className="nav-item"><a href="#projects">Projects</a></li> */}
-            <li className="nav-item"><a href="#pricing">Pricing</a></li>
-            <li className="nav-item"><a href="#masterplan">Floor Plan</a></li>
-            <li className="nav-item"><a href="#location">Location</a></li>
-            <li className="nav-item"><a href="tel:9718344024" className="phone-btn"><Phone size={14}/> 9718344024</a></li>
-          </ul>
+            {/* Right Nav Wing */}
+            <ul className="nav-wing nav-wing-right">
+              <li className="nav-item"><a href="#pricing">Pricing</a></li>
+              <li className="nav-item"><a href="#masterplan">Floor Plan</a></li>
+              <li className="nav-item"><a href="#location">Location</a></li>
+              <li className="nav-item"><a href="tel:9718344024" className="phone-btn"><Phone size={14}/> 9718344024</a></li>
+            </ul>
+          </div>
         </div>
 
         {/* Hamburger Menu Trigger */}
@@ -647,7 +687,6 @@ const Navbar = ({ setIsOpen }) => {
             <li><a href="#highlights" onClick={() => setMobileOpen(false)}>Highlights</a></li>
             <li><a href="#gallery" onClick={() => setMobileOpen(false)}>Gallery</a></li>
             <li><a href="#amenities" onClick={() => setMobileOpen(false)}>Amenities</a></li>
-            {/* <li><a href="#projects" onClick={() => setMobileOpen(false)}>Projects</a></li> */}
             <li><a href="#pricing" onClick={() => setMobileOpen(false)}>Pricing</a></li>
             <li><a href="#masterplan" onClick={() => setMobileOpen(false)}>Floor Plan</a></li>
             <li><a href="#location" onClick={() => setMobileOpen(false)}>Location</a></li>

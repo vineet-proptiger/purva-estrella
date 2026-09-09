@@ -42,16 +42,16 @@ const nephilm = localFont({
 })
 
 export const metadata = {
-  metadataBase: new URL('https://purva-estrella-lokhandwala.co.in'),
+  metadataBase: new URL('https://puravankaraestrellalokhandwala.com'),
   title: 'Purva Estrella | Luxury 2/3/4 BHK Residences in Lokhandwala, Andheri West, Mumbai',
   description: "Purva Estrella — A premium residential development in Lokhandwala, Andheri West, Mumbai offering luxury 2, 3, and 4 BHK residences.",
   alternates: {
-    canonical: 'https://purva-estrella-lokhandwala.co.in/',
+    canonical: 'https://puravankaraestrellalokhandwala.com/',
   },
   openGraph: {
     title: 'Purva Estrella | Luxury Integrated Development in Lokhandwala',
     description: "Discover luxury 2/3/4 BHK residences at Purva Estrella, a premium development in Lokhandwala, Andheri West, Mumbai.",
-    url: 'https://purva-estrella-lokhandwala.co.in/',
+    url: 'https://puravankaraestrellalokhandwala.com/',
     siteName: 'Purva Estrella',
     images: [
       {
@@ -67,7 +67,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Purva Estrella | Luxury 2/3/4 BHK Residences in Lokhandwala',
-    description: "A thoughtfully planned 70-acre landmark development in Lokhandwala, Andheri West, Mumbai by Purva.",
+    description: "A thoughtfully planned landmark luxury development in Lokhandwala, Andheri West, Mumbai by Puravankara.",
     images: ['/images/hero/banner.webp'],
   },
   icons: {
@@ -90,22 +90,22 @@ export default function RootLayout({ children }) {
               "@context": "https://schema.org",
               "@type": "RealEstateAgent",
               "name": "Purva Estrella Lokhandwala",
-              "url": "https://purva-estrella-lokhandwala.co.in/",
-              "logo": "https://purva-estrella-lokhandwala.co.in/images/logo/Logo.webp",
-              "image": "https://purva-estrella-lokhandwala.co.in/images/hero/banner.webp",
+              "url": "https://puravankaraestrellalokhandwala.com/",
+              "logo": "https://puravankaraestrellalokhandwala.com/images/logo/Logo.webp",
+              "image": "https://puravankaraestrellalokhandwala.com/images/hero/banner.webp",
               "description": "Purva Estrella, Mumbai's premium residential development in Lokhandwala offering 2/3/4 BHK luxury residences.",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Lokhandwala",
+                "streetAddress": "Lokhandwala, Andheri West",
                 "addressLocality": "Mumbai",
-                "addressRegion": "Karnataka",
-                "postalCode": "560109",
+                "addressRegion": "Maharashtra",
+                "postalCode": "400053",
                 "addressCountry": "IN"
               },
               "telephone": "+919718344024",
-              "priceRange": "₹ 3 Crore Onwards",
+              "priceRange": "₹ 3.38 Crore Onwards",
               "sameAs": [
-                "https://purva-estrella-lokhandwala.co.in/"
+                "https://puravankaraestrellalokhandwala.com/"
               ]
             })
           }}

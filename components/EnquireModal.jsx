@@ -43,7 +43,7 @@ const EnquireModal = ({ isOpen, setIsOpen }) => {
         className="relative w-full max-w-[92vw] sm:w-[440px] h-auto rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] flex flex-col justify-center items-center p-8 mx-auto"
         style={{
           background: 'radial-gradient(circle at center, #0E2744 0%, #061426 100%)',
-          border: '1px solid #C5A059',
+          border: '1.5px solid #ffffff',
           boxShadow: '0 0 50px rgba(0, 75, 135, 0.4), 0 20px 45px rgba(0,0,0,0.7)',
           animation: 'slideInRight 0.45s cubic-bezier(0.22,1,0.36,1) forwards',
         }}
@@ -53,20 +53,20 @@ const EnquireModal = ({ isOpen, setIsOpen }) => {
           <div className="text-center mb-5 flex flex-col items-center">
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 z-20 text-black hover:text-black hover:scale-110 transition-all flex items-center justify-center shadow-lg"
+              className="absolute top-4 right-4 z-20 text-gray-900 hover:text-black hover:scale-110 transition-all flex items-center justify-center shadow-lg"
               style={{ 
                 width: '28px', 
                 height: '28px', 
                 borderRadius: '50%', 
-                background: '#C5A059' 
+                background: '#ffffff' 
               }}
             >
               <X size={16} strokeWidth={2.5} />
             </button>
-            <h3 className="text-xl sm:text-2xl font-bold tracking-wider mb-2 uppercase" style={{ fontFamily: F_JOST, color: '#C5A059' }}>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-wider mb-2 uppercase text-white" style={{ fontFamily: F_JOST }}>
               Enquire Now
             </h3>
-            <p className="text-white text-[13px]" style={{ fontFamily: F_SANS }}>
+            <p className="text-white/80 text-[13px]" style={{ fontFamily: F_SANS }}>
               Please enter your details to know more
             </p>
             

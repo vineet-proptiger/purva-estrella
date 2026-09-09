@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = 'https://purva-estrella-lokhandwala.co.in'
+  const baseUrl = 'https://puravankaraestrellalokhandwala.com'
   return [
     {
       url: `${baseUrl}`,

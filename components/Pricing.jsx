@@ -58,7 +58,7 @@ const Pricing = ({ setIsOpen }) => {
   return (
     <section
       id="pricing"
-      className="py-16 sm:py-24 px-4 md:px-8 relative overflow-hidden bg-[#f5f8fc]"
+      className="pt-12 sm:pt-16 md:pt-20 pb-7 sm:pb-9 md:pb-12 px-4 md:px-8 relative overflow-hidden bg-[#f5f8fc]"
     >
       {/* Background ambient lighting */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-[#e3effa]/70 to-transparent blur-3xl pointer-events-none" />

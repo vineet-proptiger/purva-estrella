@@ -19,11 +19,11 @@ const Footer = () => (
         >
           About The Developer
         </h2>
-        <p style={{ fontSize: '13px', color: 'var(--color-gold)', fontFamily: F_JOST, fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '12px' }}>
+        <p style={{ fontSize: '13px', color: '#ffffff', fontFamily: F_JOST, fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '12px' }}>
           Landmark Integrated Development — Lokhandwala, Andheri West, Mumbai
         </p>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
-          <span style={{ width: '36px', height: '2.5px', background: 'linear-gradient(90deg, var(--color-gold), var(--color-gold-light))', borderRadius: '2px' }} />
+          <span style={{ width: '36px', height: '2.5px', background: 'rgba(255, 255, 255, 0.75)', borderRadius: '2px' }} />
         </div>
         <p style={{ fontSize: '15px', color: '#fff', fontFamily: 'var(--font-poppins), sans-serif', lineHeight: 1.8, marginBottom: '24px', textAlign: 'justify' }}
           data-aos="fade-in" data-aos-delay="100">

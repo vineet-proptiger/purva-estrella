@@ -17,28 +17,31 @@ const locationLandmarks = [
 
 const Location = () => {
   return (
-    <section id="location" style={{
-      padding: '72px 0',
-      backgroundImage: "url('/images/highlights/highlight.webp')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-    }}>
+    <section 
+      id="location" 
+      className="pt-2 sm:pt-4 md:pt-6 pb-16 md:pb-20"
+      style={{
+        backgroundImage: "url('/images/highlights/highlight.webp')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <div className="container mx-auto px-4 md:px-8 max-w-[1200px]">
 
         {/* Section Header */}
-        <div style={{ marginBottom: '50px', textAlign: 'center' }} data-aos="fade-down" data-aos-duration="1000">
+        <div className="mb-6 md:mb-8 text-center" data-aos="fade-down" data-aos-duration="1000">
            <h2
-             className="text-[22px] sm:text-[28px] md:text-[36px] font-semibold leading-tight uppercase tracking-wider text-[#004B87]"
+             className="text-[22px] sm:text-[28px] md:text-[36px] font-semibold leading-tight uppercase tracking-wider text-white"
              style={{ fontFamily: "var(--font-jost), Montserrat, sans-serif", marginBottom: '12px' }}
            >
              LOCATION ADVANTAGES
            </h2>
            {/* Decorative Line */}
            <div className="flex items-center justify-center mt-3 mb-2">
-             <div className="w-16 h-[1px] bg-[#004B87]"></div>
-             <div className="w-2 h-2 rounded-full bg-[#004B87] mx-3"></div>
-             <div className="w-16 h-[1px] bg-[#004B87]"></div>
+             <div className="w-16 h-[1px] bg-white/70"></div>
+             <div className="w-2 h-2 rounded-full bg-white mx-3"></div>
+             <div className="w-16 h-[1px] bg-white/70"></div>
            </div>
         </div>
 
