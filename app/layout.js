@@ -43,14 +43,14 @@ const nephilm = localFont({
 
 export const metadata = {
   metadataBase: new URL('https://puravankaraestrellalokhandwala.com'),
-  title: 'Purva Estrella | Luxury 2/3/4 BHK Residences in Lokhandwala, Andheri West, Mumbai',
-  description: "Purva Estrella — A premium residential development in Lokhandwala, Andheri West, Mumbai offering luxury 2, 3, and 4 BHK residences.",
+  title: 'Purva Estrella Lokhandwala | Luxury 2, 3 & 4 BHK Mumbai',
+  description: "Purva Estrella in Lokhandwala, Andheri West, Mumbai offers luxury 2, 3 & 4 BHK homes with world-class amenities by Puravankara. Enquire now for brochure!",
   alternates: {
     canonical: 'https://puravankaraestrellalokhandwala.com/',
   },
   openGraph: {
-    title: 'Purva Estrella | Luxury Integrated Development in Lokhandwala',
-    description: "Discover luxury 2/3/4 BHK residences at Purva Estrella, a premium development in Lokhandwala, Andheri West, Mumbai.",
+    title: 'Purva Estrella Lokhandwala | Luxury 2, 3 & 4 BHK Mumbai',
+    description: "Purva Estrella in Lokhandwala, Andheri West, Mumbai offers luxury 2, 3 & 4 BHK homes with world-class amenities by Puravankara. Enquire now for brochure!",
     url: 'https://puravankaraestrellalokhandwala.com/',
     siteName: 'Purva Estrella',
     images: [
@@ -66,8 +66,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Purva Estrella | Luxury 2/3/4 BHK Residences in Lokhandwala',
-    description: "A thoughtfully planned landmark luxury development in Lokhandwala, Andheri West, Mumbai by Puravankara.",
+    title: 'Purva Estrella Lokhandwala | Luxury 2, 3 & 4 BHK Mumbai',
+    description: "Purva Estrella in Lokhandwala, Andheri West, Mumbai offers luxury 2, 3 & 4 BHK homes with world-class amenities by Puravankara. Enquire now for brochure!",
     images: ['/images/hero/banner.webp'],
   },
   icons: {

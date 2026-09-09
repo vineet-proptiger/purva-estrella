@@ -101,7 +101,7 @@ const Overview = ({ setIsOpen }) => {
             {/* Info Boxes inside the background container */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 sm:mt-8 pt-6 border-t border-[#C5A059]/20">
               
-              {/* Box 1: Land Parcel */}
+              {/* Box 1: Total Project Area */}
               <div className="flex items-center gap-4 p-4 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex-shrink-0">
                   <svg className="w-8 h-8 sm:w-9 sm:h-9 text-[#004B87]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -110,12 +110,12 @@ const Overview = ({ setIsOpen }) => {
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span style={{ fontFamily: "var(--font-jost), Montserrat, sans-serif" }} className="text-[20px] sm:text-[23px] font-bold text-[#004B87] leading-tight uppercase">10.52 Acres</span>
-                  <span style={{ fontFamily: "var(--font-sans), Open Sans, sans-serif" }} className="text-[13px] sm:text-[14px] text-gray-500 font-bold leading-normal mt-0.5 uppercase tracking-wide">PROJECT AREA</span>
+                  <span style={{ fontFamily: "var(--font-jost), Montserrat, sans-serif" }} className="text-[20px] sm:text-[23px] font-bold text-[#004B87] leading-tight uppercase">2.95 Acres</span>
+                  <span style={{ fontFamily: "var(--font-sans), Open Sans, sans-serif" }} className="text-[13px] sm:text-[14px] text-gray-500 font-bold leading-normal mt-0.5 uppercase tracking-wide">TOTAL PROJECT AREA</span>
                 </div>
               </div>
 
-              {/* Box 2: Total Villas */}
+              {/* Box 2: Towers */}
               <div className="flex items-center gap-4 p-4 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex-shrink-0">
                   <svg className="w-8 h-8 sm:w-9 sm:h-9 text-[#004B87]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -128,8 +128,8 @@ const Overview = ({ setIsOpen }) => {
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span style={{ fontFamily: "var(--font-jost), Montserrat, sans-serif" }} className="text-[20px] sm:text-[23px] font-bold text-[#004B87] leading-tight uppercase">123 Residences</span>
-                  <span style={{ fontFamily: "var(--font-sans), Open Sans, sans-serif" }} className="text-[13px] sm:text-[14px] text-gray-500 font-bold leading-normal mt-0.5 uppercase tracking-wide">NO: OF UNITS</span>
+                  <span style={{ fontFamily: "var(--font-jost), Montserrat, sans-serif" }} className="text-[20px] sm:text-[23px] font-bold text-[#004B87] leading-tight uppercase">6 Signature Towers </span>
+                  <span style={{ fontFamily: "var(--font-sans), Open Sans, sans-serif" }} className="text-[13px] sm:text-[14px] text-gray-500 font-bold leading-normal mt-0.5 uppercase tracking-wide">TOWERS</span>
                 </div>
               </div>
 
