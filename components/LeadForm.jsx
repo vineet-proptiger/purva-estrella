@@ -117,13 +117,26 @@ const LeadForm = ({ formName = 'Hero Form', btnText = 'Submit Details', isTransp
 
   if (success) return (
     <div className="text-center py-6">
-      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'var(--color-gold-bg)' }}>
-        <svg className="w-8 h-8" style={{ color: 'var(--color-gold-dark)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+      <div 
+        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" 
+        style={{ 
+          background: isTransparent ? 'rgba(255, 255, 255, 0.12)' : 'var(--color-gold-bg)',
+          border: isTransparent ? '2px solid #ffffff' : 'none',
+          boxShadow: isTransparent ? '0 0 20px rgba(255, 255, 255, 0.2)' : 'none'
+        }}
+      >
+        <svg 
+          className="w-8 h-8" 
+          style={{ color: isTransparent ? '#ffffff' : 'var(--color-gold-dark)' }} 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.8} d="M5 13l4 4L19 7" />
         </svg>
       </div>
       <h4 className={`text-xl font-bold mb-2 ${isTransparent ? 'text-white' : 'text-gray-900'}`} style={{ fontFamily: F_SANS }}>Thank You!</h4>
-      <p className={`text-sm ${isTransparent ? 'text-gray-300' : 'text-gray-500'}`} style={{ fontFamily: F_SANS }}>Our team will contact you shortly.</p>
+      <p className={`text-sm ${isTransparent ? 'text-gray-200' : 'text-gray-500'}`} style={{ fontFamily: F_SANS }}>Our team will contact you shortly.</p>
     </div>
   )
 
